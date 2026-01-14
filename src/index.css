@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Cấu hình thêm cho chắc chắn */
+@source "../index.html";
+@source "./**/*.{js,ts,jsx,tsx}";
+
+@theme {
+  --font-sans: 'Nunito', sans-serif;
+}
+
+/* Copy lại các keyframes animation tôi đã gửi ở câu trước vào dưới này */
