@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Camera, Calendar, Sparkles, ArrowDown, Menu, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, Camera, Calendar, Sparkles, ArrowDown, Menu, X, ChevronLeft, ChevronRight, Gift } from 'lucide-react';
 
 export default function LoveMemories() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedMemory, setSelectedMemory] = useState(null);
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const [isOpened, setIsOpened] = useState(false);
   
   // Ngày bắt đầu yêu
   const startDate = new Date('2025-11-06');
@@ -14,20 +17,81 @@ export default function LoveMemories() {
   
   // Ảnh cho slideshow hero
   const heroImages = [
-    'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=1920&h=1080&fit=crop',
-    'https://images.unsplash.com/photo-1470228a23b9-e67a71b4a9ce?w=1920&h=1080&fit=crop',
-    'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1920&h=1080&fit=crop',
-    'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1920&h=1080&fit=crop'
+    '/images/anh1.jpg?w=1920&h=1080&fit=crop',
+    '/images/anh2.jpg?w=1920&h=1080&fit=crop',
+    '/images/anh3.jpg?w=1920&h=1080&fit=crop',
+    '/images/anh4.jpg?w=1920&h=1080&fit=crop'
   ];
+
+  const openGallery = (memory) => {
+    setSelectedMemory(memory);
+    setCurrentImgIndex(0); // Luôn bắt đầu từ ảnh đầu tiên
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeGallery = () => {
+    setSelectedMemory(null);
+    document.body.style.overflow = 'auto';
+  };
+
+  // Hàm chuyển ảnh tiếp theo
+  const nextImage = (e) => {
+    e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài làm đóng modal
+    if (currentImgIndex < selectedMemory.album.length - 1) {
+      setCurrentImgIndex(currentImgIndex + 1);
+    } else {
+      setCurrentImgIndex(0); // Quay lại ảnh đầu nếu hết
+    }
+  };
+
+  // Hàm quay lại ảnh trước
+  const prevImage = (e) => {
+    e.stopPropagation();
+    if (currentImgIndex > 0) {
+      setCurrentImgIndex(currentImgIndex - 1);
+    } else {
+      setCurrentImgIndex(selectedMemory.album.length - 1); // Đến ảnh cuối nếu đang ở đầu
+    }
+  };
   
   // Ảnh mẫu demo
   const memories = [
-    { id: 1, title: 'Ngày đầu gặp nhau', date: '15/06/2023', image: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=400&fit=crop' },
-    { id: 2, title: 'Picnic cuối tuần', date: '22/07/2023', image: 'https://images.unsplash.com/photo-1470428638778-de9a77f6e3ee?w=400&h=400&fit=crop' },
-    { id: 3, title: 'Chuyến đi biển', date: '15/08/2023', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=400&fit=crop' },
-    { id: 4, title: 'Hẹn hò cafe', date: '03/09/2023', image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400&h=400&fit=crop' },
-    { id: 5, title: 'Sinh nhật anh', date: '20/10/2023', image: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&h=400&fit=crop' },
-    { id: 6, title: 'Noel cùng nhau', date: '24/12/2023', image: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&h=400&fit=crop' },
+    { id: 1, title: 'Đi ăn cùng nhau nà', date: '29/11/2025', image: '/1_havelunch/1.jpg?w=400&h=400&fit=crop',
+      album: [
+        '/1_havelunch/1.jpg',
+        '/1_havelunch/2.jpg',
+        '/1_havelunch/3.jpg'
+      ]
+    },
+    { id: 2, title: 'Đi Thảo Cầm Viên với nhau nà', date: '27/12/2025', image: '/2_thaocamvien/1.jpg?w=400&h=400&fit=crop',
+      album: [
+        '/2_thaocamvien/1.jpg',
+        '/2_thaocamvien/2.jpg',
+        '/2_thaocamvien/3.jpg',
+        '/2_thaocamvien/4.jpg',
+      ]
+    },
+    { id: 3, title: 'Work date đồ đoá', date: '28/12/2025', image: '/3_studydate/1.jpg?w=400&h=400&fit=crop',
+      album: [
+        '/3_studydate/1.jpg',
+      ]
+    },
+    { id: 4, title: 'Đi ăn cùng nhau ở Long Xuyên nà', date: '02/01/2025', image: '/4_thaifood/1.jpg?w=400&h=400&fit=crop',
+      album: [
+        '/4_thaifood/1.jpg',
+        '/4_thaifood/2.jpg',
+        '/4_thaifood/3.jpg',
+        '/4_thaifood/4.jpg',
+      ]
+    },
+    { id: 5, title: 'Đi thăm khu lưu niệm Bác Tôn nà', date: '03/01/2025', image: '/5_TonPresident/1.jpg?w=400&h=400&fit=crop',
+      album: [
+        '/5_TonPresident/1.jpg',
+        '/5_TonPresident/2.jpg',
+        '/5_TonPresident/3.jpg',
+        '/5_TonPresident/4.jpg',
+      ]
+    },
   ];
 
   // Auto slideshow
@@ -169,7 +233,7 @@ export default function LoveMemories() {
                 alt={`Slide ${index + 1}`}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-white/40 backdrop-blur-md"></div>
+              <div className="absolute inset-0 bg-white/5 backdrop-blur-sm"></div>
             </div>
           ))}
         </div>
@@ -287,15 +351,20 @@ export default function LoveMemories() {
             </h2>
             <div className="w-24 h-1.5 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full mb-6"></div>
             <p className="text-lg sm:text-2xl text-gray-700 max-w-3xl mx-auto font-medium px-4">
-              Câu chuyện tình yêu của hai đứa bắt đầu từ một ngày hè tháng 6... ☀️
+              Hai đứa gặp gỡ nhau vào một ngày đẹp trời tháng 11... ☀️
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
             <div className="group bg-gradient-to-br from-white/80 to-pink-50/80 backdrop-blur-xl rounded-[2.5rem] p-8 sm:p-10 shadow-2xl hover:shadow-pink-300/50 transition-all duration-500 hover:-translate-y-3 animate-fade-in-left border-2 border-pink-200/50">
               <div className="relative mb-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-pink-400 to-rose-600 rounded-3xl flex items-center justify-center transform rotate-6 group-hover:rotate-12 transition-transform shadow-xl">
-                  <Heart className="text-white fill-white" size={36} />
+                <div className="w-24 h-24 p-1 bg-gradient-to-br from-pink-400 to-rose-600 rounded-3xl flex items-center justify-center transform rotate-6 group-hover:rotate-12 transition-transform shadow-xl overflow-hidden">
+                  {/* Thẻ img thay cho Icon */}
+                  <img 
+                    src="/images/anh6.jpg" // Thay đường dẫn ảnh của bạn ở đây
+                    alt="Anh ấy"
+                    className="w-full h-full object-cover rounded-[1.4rem] transition-transform group-hover:scale-110"
+                  />
                 </div>
                 <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center animate-bounce">
                   <span className="text-xl">👨</span>
@@ -305,20 +374,24 @@ export default function LoveMemories() {
                 Anh ấy
               </h3>
               <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
-                Người luôn làm em cười, người bảo vệ em, người yêu em thật nhiều. 
-                Anh là ánh sáng rực rỡ trong cuộc đời em, là lý do để em mỉm cười mỗi ngày.
+                Hỏng có gì để nói, hay chọc em hahaha
               </p>
               <div className="flex gap-2 flex-wrap">
-                <span className="px-5 py-2.5 bg-gradient-to-r from-pink-100 to-rose-100 text-pink-700 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all hover:scale-105">❤️ Ấm áp</span>
-                <span className="px-5 py-2.5 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all hover:scale-105">🎮 Vui vẻ</span>
-                <span className="px-5 py-2.5 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all hover:scale-105">🌟 Tuyệt vời</span>
+                <span className="px-5 py-2.5 bg-gradient-to-r from-pink-100 to-rose-100 text-pink-700 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all hover:scale-105">❤️ Hay chọc em</span>
+                <span className="px-5 py-2.5 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all hover:scale-105">🎮 Ổ cứng</span>
+                <span className="px-5 py-2.5 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all hover:scale-105">🌟 IUH hihi</span>
               </div>
             </div>
 
             <div className="group bg-gradient-to-br from-white/80 to-purple-50/80 backdrop-blur-xl rounded-[2.5rem] p-8 sm:p-10 shadow-2xl hover:shadow-purple-300/50 transition-all duration-500 hover:-translate-y-3 animate-fade-in-right border-2 border-purple-200/50">
               <div className="relative mb-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-600 rounded-3xl flex items-center justify-center transform -rotate-6 group-hover:-rotate-12 transition-transform shadow-xl">
-                  <Heart className="text-white fill-white" size={36} />
+                <div className="w-24 h-24 p-1 bg-gradient-to-br from-pink-400 to-rose-600 rounded-3xl flex items-center justify-center transform rotate-6 group-hover:rotate-12 transition-transform shadow-xl overflow-hidden">
+                  {/* Thẻ img thay cho Icon */}
+                  <img 
+                    src="/images/anh7.jpg" // Thay đường dẫn ảnh của bạn ở đây
+                    alt="Cô ấy"
+                    className="w-full h-full object-cover rounded-[1.4rem] transition-transform group-hover:scale-110"
+                  />
                 </div>
                 <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center animate-bounce" style={{ animationDelay: '0.2s' }}>
                   <span className="text-xl">👩</span>
@@ -329,7 +402,7 @@ export default function LoveMemories() {
               </h3>
               <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
                 Người luôn bên anh, người hiểu anh nhất. 
-                Em là món quà quý giá nhất mà cuộc sống dành cho anh, là người anh muốn nắm tay suốt đời.
+                Là người tình cảm, dễ thương, đáng iu, ba gai, tiết kiệm chụp ảnh,... nói chung là tuyệt zời
               </p>
               <div className="flex gap-2 flex-wrap">
                 <span className="px-5 py-2.5 bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all hover:scale-105">💖 Dễ thương</span>
@@ -387,6 +460,7 @@ export default function LoveMemories() {
             {memories.map((memory, index) => (
               <div
                 key={memory.id}
+                onClick={() => openGallery(memory)}
                 className="group relative bg-white rounded-[2rem] overflow-hidden shadow-2xl hover:shadow-purple-300/50 transition-all duration-500 hover:-translate-y-4 animate-fade-in-up border-4 border-white"
                 style={{ animationDelay: `${index * 0.15}s` }}
               >
@@ -423,11 +497,85 @@ export default function LoveMemories() {
             ))}
           </div>
 
+          {selectedMemory && (
+            <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black/98 backdrop-blur-md p-4 animate-fade-in overflow-hidden">
+              
+              <button 
+                onClick={closeGallery}
+                /* top-20 để nó nằm dưới thanh Navigation nếu thanh Nav vẫn còn lấp ló, 
+                  hoặc để top-6 nhưng với z-index cực cao */
+                className="fixed top-6 right-6 z-[1000] p-3 sm:p-4 bg-white/10 hover:bg-rose-500 backdrop-blur-xl rounded-full text-white transition-all shadow-2xl border border-white/20 active:scale-90"
+                title="Đóng (Esc)"
+              >
+                <X size={28} className="sm:w-8 sm:h-8" />
+              </button>
+
+              {/* Nút Previous (Ẩn trên mobile nhỏ, hiện trên sm trở lên để tránh vướng) */}
+              <button 
+                onClick={prevImage}
+                className="absolute left-2 sm:left-10 z-[110] p-3 sm:p-5 bg-white/5 hover:bg-white/10 rounded-full text-white transition-all group active:scale-90"
+              >
+                <ChevronLeft size={32} className="sm:w-12 sm:h-12 group-hover:-translate-x-1 transition-transform" />
+              </button>
+
+              {/* Khu vực hiển thị ảnh chính */}
+              <div className="relative w-full max-w-5xl h-[65vh] sm:h-[75vh] flex flex-col items-center justify-center">
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <img 
+                    src={selectedMemory.album[currentImgIndex]} 
+                    alt="Gallery" 
+                    /* Dùng object-contain để ảnh không bị méo và luôn thấy toàn bộ ảnh */
+                    className="max-w-full max-h-full object-contain rounded-lg shadow-2xl animate-scale-in"
+                    key={currentImgIndex}
+                  />
+                </div>
+
+                {/* Thông tin kỷ niệm */}
+                <div className="mt-6 text-center text-white px-4">
+                  <h2 className="text-xl sm:text-3xl font-black mb-1 line-clamp-1">{selectedMemory.title}</h2>
+                  <p>Nhấn vào chỗ bất kỳ trừ nút chuyển ảnh để tắt</p>
+                  <div className="flex items-center justify-center gap-3 text-pink-400 font-bold text-sm sm:text-base">
+                    <Calendar size={18} />
+                    <span>{selectedMemory.date}</span>
+                    <span className="px-3 py-0.5 bg-white/10 rounded-full text-xs text-white border border-white/10">
+                      {currentImgIndex + 1} / {selectedMemory.album.length}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Nút Next */}
+              <button 
+                onClick={nextImage}
+                className="absolute right-2 sm:right-10 z-[110] p-3 sm:p-5 bg-white/5 hover:bg-white/10 rounded-full text-white transition-all group active:scale-90"
+              >
+                <ChevronRight size={32} className="sm:w-12 sm:h-12 group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              {/* Lớp phủ click để đóng (Z-index 100 để nằm dưới nút và ảnh) */}
+              <div className="absolute inset-0 z-[90]" onClick={closeGallery}></div>
+              
+              {/* Thêm một nút đóng phụ to rõ ràng ở dưới cùng dành riêng cho Mobile */}
+              <button 
+                onClick={closeGallery}
+                className="sm:hidden mt-8 px-8 py-3 bg-white/10 border border-white/20 rounded-full text-white font-bold text-sm backdrop-blur-md active:bg-rose-500/50"
+              >
+                Vuốt xuống hoặc chạm để đóng
+              </button>
+            </div>
+          )}
+
           {/* Footer */}
           <div className="mt-16 sm:mt-24 text-center animate-fade-in-up">
-            <div className="inline-block relative group">
+            <div className="inline-block relative group cursor-pointer" onClick={() => setIsOpened(true)}>
+              
+              {/* 1. HIỆU ỨNG ÁNH SÁNG NỀN (Giữ nguyên) */}
               <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 rounded-[2.5rem] blur-2xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
-              <div className="relative bg-gradient-to-br from-white/90 to-pink-50/90 backdrop-blur-xl rounded-[2.5rem] px-10 sm:px-16 py-10 sm:py-12 shadow-2xl border-2 border-pink-200/50">
+
+              {/* 2. NỘI DUNG LỜI CHÚC (Sẽ hiện ra khi isOpened = true) */}
+              <div className={`relative bg-gradient-to-br from-white/90 to-pink-50/90 backdrop-blur-xl rounded-[2.5rem] px-10 sm:px-16 py-10 sm:py-12 shadow-2xl border-2 border-pink-200/50 transition-all duration-1000 ${
+                isOpened ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-50 rotate-12 blur-lg pointer-events-none'
+              }`}>
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
                   <Heart className="text-pink-500 fill-pink-500 animate-pulse drop-shadow-2xl" size={52} />
                 </div>
@@ -442,7 +590,34 @@ export default function LoveMemories() {
                   From Van Khanh with love to Thanh Ngan 💕
                 </p>
               </div>
+
+              {/* 3. LỚP PHỦ HỘP QUÀ (Sẽ mất đi khi isOpened = true) */}
+              {!isOpened && (
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gradient-to-br from-pink-400 to-purple-600 rounded-[2.5rem] shadow-2xl transition-all duration-700 hover:scale-105 active:scale-95">
+                  <div className="relative">
+                    <Gift className="text-white animate-bounce" size={80} strokeWidth={1.5} />
+                    <div className="absolute inset-0 bg-white/20 blur-xl rounded-full animate-pulse"></div>
+                  </div>
+                  <p className="text-white font-bold mt-4 tracking-widest animate-pulse">
+                    NHẤN ĐỂ MỞ QUÀ 💕
+                  </p>
+                  
+                  {/* Nơ hộp quà trang trí */}
+                  <div className="absolute top-0 w-full h-8 bg-white/20 rounded-t-[2.5rem]"></div>
+                  <div className="absolute left-1/2 -translate-x-1/2 w-8 h-full bg-white/20"></div>
+                </div>
+              )}
             </div>
+            
+            {/* Nút để đóng hộp quà lại nếu muốn chơi lại */}
+            {isOpened && (
+              <button 
+                onClick={(e) => { e.stopPropagation(); setIsOpened(false); }}
+                className="mt-6 text-pink-500 font-bold text-sm hover:underline opacity-60"
+              >
+                Gói lại hộp quà
+              </button>
+            )}
           </div>
         </div>
       </section>
