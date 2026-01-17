@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Camera, Calendar, Sparkles, ArrowDown, Menu, X, ChevronLeft, ChevronRight, Gift } from 'lucide-react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function LoveMemories() {
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Độ dài hiệu ứng (ms)
+      once: false,    // true: chỉ chạy 1 lần; false: lướt lên lướt xuống đều chạy lại
+      easing: 'ease-in-out',
+    });
+  }, []);
+
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -218,7 +229,7 @@ export default function LoveMemories() {
       </nav>
 
       {/* Hero Section with Image Slider */}
-      <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden" data-aos="fade-up">
         {/* Background Image Slider with Blur */}
         <div className="absolute inset-0">
           {heroImages.map((img, index) => (
@@ -341,7 +352,7 @@ export default function LoveMemories() {
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-purple-300 rounded-full blur-3xl opacity-30 animate-pulse" style={{ animationDelay: '1s' }}></div>
         
         <div className="max-w-6xl w-full relative z-10">
-          <div className="text-center mb-16 sm:mb-20 animate-fade-in-up">
+          <div className="text-center mb-16 sm:mb-20 animate-fade-in-up" data-aos="fade-left">
             <div className="inline-block relative mb-6">
               <Sparkles className="inline-block text-yellow-400 animate-pulse" size={48} />
               <div className="absolute inset-0 bg-yellow-400 rounded-full blur-xl opacity-50"></div>
@@ -355,7 +366,7 @@ export default function LoveMemories() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12" data-aos="fade-right">
             <div className="group bg-gradient-to-br from-white/80 to-pink-50/80 backdrop-blur-xl rounded-[2.5rem] p-8 sm:p-10 shadow-2xl hover:shadow-pink-300/50 transition-all duration-500 hover:-translate-y-3 animate-fade-in-left border-2 border-pink-200/50">
               <div className="relative mb-6">
                 <div className="w-24 h-24 p-1 bg-gradient-to-br from-pink-400 to-rose-600 rounded-3xl flex items-center justify-center transform rotate-6 group-hover:rotate-12 transition-transform shadow-xl overflow-hidden">
@@ -412,7 +423,7 @@ export default function LoveMemories() {
             </div>
           </div>
 
-          <div className="relative group animate-fade-in-up">
+          <div className="relative group animate-fade-in-up" data-aos="fade-left">
             <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-[2.5rem] blur-xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
             <div className="relative bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-[2.5rem] p-8 sm:p-12 text-white shadow-2xl overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
@@ -441,7 +452,7 @@ export default function LoveMemories() {
         <div className="absolute top-40 right-20 w-64 h-64 bg-blue-300 rounded-full blur-3xl opacity-20 animate-pulse"></div>
         <div className="absolute bottom-40 left-20 w-64 h-64 bg-pink-300 rounded-full blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
         
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="max-w-7xl mx-auto relative z-10" data-aos="fade-right">
           <div className="text-center mb-16 sm:mb-20 animate-fade-in-up">
             <div className="inline-block relative mb-6">
               <Camera className="inline-block text-purple-500 animate-pulse" size={52} />
@@ -456,7 +467,7 @@ export default function LoveMemories() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" data-aos="fade-left">
             {memories.map((memory, index) => (
               <div
                 key={memory.id}
@@ -566,7 +577,7 @@ export default function LoveMemories() {
           )}
 
           {/* Footer */}
-          <div className="mt-16 sm:mt-24 text-center animate-fade-in-up">
+          <div className="mt-16 sm:mt-24 text-center animate-fade-in-up" data-aos="fade-right">
             <div className="inline-block relative group cursor-pointer" onClick={() => setIsOpened(true)}>
               
               {/* 1. HIỆU ỨNG ÁNH SÁNG NỀN (Giữ nguyên) */}
