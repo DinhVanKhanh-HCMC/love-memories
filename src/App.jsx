@@ -508,74 +508,6 @@ export default function LoveMemories() {
             ))}
           </div>
 
-          {selectedMemory && (
-            <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black/98 backdrop-blur-md p-4 animate-fade-in overflow-hidden">
-              
-              <button 
-                onClick={closeGallery}
-                /* top-20 để nó nằm dưới thanh Navigation nếu thanh Nav vẫn còn lấp ló, 
-                  hoặc để top-6 nhưng với z-index cực cao */
-                className="fixed top-6 right-6 z-[1000] p-3 sm:p-4 bg-white/10 hover:bg-rose-500 backdrop-blur-xl rounded-full text-white transition-all shadow-2xl border border-white/20 active:scale-90"
-                title="Đóng (Esc)"
-              >
-                <X size={28} className="sm:w-8 sm:h-8" />
-              </button>
-
-              {/* Nút Previous (Ẩn trên mobile nhỏ, hiện trên sm trở lên để tránh vướng) */}
-              <button 
-                onClick={prevImage}
-                className="absolute left-2 sm:left-10 z-[110] p-3 sm:p-5 bg-white/5 hover:bg-white/10 rounded-full text-white transition-all group active:scale-90"
-              >
-                <ChevronLeft size={32} className="sm:w-12 sm:h-12 group-hover:-translate-x-1 transition-transform" />
-              </button>
-
-              {/* Khu vực hiển thị ảnh chính */}
-              <div className="relative w-full max-w-5xl h-[65vh] sm:h-[75vh] flex flex-col items-center justify-center">
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <img 
-                    src={selectedMemory.album[currentImgIndex]} 
-                    alt="Gallery" 
-                    /* Dùng object-contain để ảnh không bị méo và luôn thấy toàn bộ ảnh */
-                    className="max-w-full max-h-full object-contain rounded-lg shadow-2xl animate-scale-in"
-                    key={currentImgIndex}
-                  />
-                </div>
-
-                {/* Thông tin kỷ niệm */}
-                <div className="mt-6 text-center text-white px-4">
-                  <h2 className="text-xl sm:text-3xl font-black mb-1 line-clamp-1">{selectedMemory.title}</h2>
-                  <p>Nhấn vào chỗ bất kỳ trừ nút chuyển ảnh để tắt</p>
-                  <div className="flex items-center justify-center gap-3 text-pink-400 font-bold text-sm sm:text-base">
-                    <Calendar size={18} />
-                    <span>{selectedMemory.date}</span>
-                    <span className="px-3 py-0.5 bg-white/10 rounded-full text-xs text-white border border-white/10">
-                      {currentImgIndex + 1} / {selectedMemory.album.length}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Nút Next */}
-              <button 
-                onClick={nextImage}
-                className="absolute right-2 sm:right-10 z-[110] p-3 sm:p-5 bg-white/5 hover:bg-white/10 rounded-full text-white transition-all group active:scale-90"
-              >
-                <ChevronRight size={32} className="sm:w-12 sm:h-12 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              {/* Lớp phủ click để đóng (Z-index 100 để nằm dưới nút và ảnh) */}
-              <div className="absolute inset-0 z-[90]" onClick={closeGallery}></div>
-              
-              {/* Thêm một nút đóng phụ to rõ ràng ở dưới cùng dành riêng cho Mobile */}
-              <button 
-                onClick={closeGallery}
-                className="sm:hidden mt-8 px-8 py-3 bg-white/10 border border-white/20 rounded-full text-white font-bold text-sm backdrop-blur-md active:bg-rose-500/50"
-              >
-                Vuốt xuống hoặc chạm để đóng
-              </button>
-            </div>
-          )}
-
           {/* Footer */}
           <div className="mt-16 sm:mt-24 text-center animate-fade-in-up" data-aos="fade-right">
             <div className="inline-block relative group cursor-pointer" onClick={() => setIsOpened(true)}>
@@ -632,6 +564,66 @@ export default function LoveMemories() {
           </div>
         </div>
       </section>
+
+      {selectedMemory && (
+        <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black/98 backdrop-blur-md p-4 animate-fade-in overflow-hidden">
+          
+          <button 
+            onClick={closeGallery}
+            /* top-20 để nó nằm dưới thanh Navigation nếu thanh Nav vẫn còn lấp ló, 
+              hoặc để top-6 nhưng với z-index cực cao */
+            className="fixed top-6 right-6 z-[1000] p-3 sm:p-4 bg-white/10 hover:bg-rose-500 backdrop-blur-xl rounded-full text-white transition-all shadow-2xl border border-white/20 active:scale-90"
+            title="Đóng (Esc)"
+          >
+            <X size={28} className="sm:w-8 sm:h-8" />
+          </button>
+
+          {/* Nút Previous (Ẩn trên mobile nhỏ, hiện trên sm trở lên để tránh vướng) */}
+          <button 
+            onClick={prevImage}
+            className="absolute left-2 sm:left-10 z-[110] p-3 sm:p-5 bg-white/5 hover:bg-white/10 rounded-full text-white transition-all group active:scale-90"
+          >
+            <ChevronLeft size={32} className="sm:w-12 sm:h-12 group-hover:-translate-x-1 transition-transform" />
+          </button>
+
+          {/* Khu vực hiển thị ảnh chính */}
+          <div className="relative w-full max-w-5xl h-[65vh] sm:h-[75vh] flex flex-col items-center justify-center">
+            <div className="relative w-full h-full flex items-center justify-center">
+              <img 
+                src={selectedMemory.album[currentImgIndex]} 
+                alt="Gallery" 
+                /* Dùng object-contain để ảnh không bị méo và luôn thấy toàn bộ ảnh */
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl animate-scale-in"
+                key={currentImgIndex}
+              />
+            </div>
+
+            {/* Thông tin kỷ niệm */}
+            <div className="mt-6 text-center text-white px-4">
+              <h2 className="text-xl sm:text-3xl font-black mb-1 line-clamp-1">{selectedMemory.title}</h2>
+              <p>Nhấn vào chỗ bất kỳ trừ nút chuyển ảnh để tắt</p>
+              <div className="flex items-center justify-center gap-3 text-pink-400 font-bold text-sm sm:text-base">
+                <Calendar size={18} />
+                <span>{selectedMemory.date}</span>
+                <span className="px-3 py-0.5 bg-white/10 rounded-full text-xs text-white border border-white/10">
+                  {currentImgIndex + 1} / {selectedMemory.album.length}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Nút Next */}
+          <button 
+            onClick={nextImage}
+            className="absolute right-2 sm:right-10 z-[110] p-3 sm:p-5 bg-white/5 hover:bg-white/10 rounded-full text-white transition-all group active:scale-90"
+          >
+            <ChevronRight size={32} className="sm:w-12 sm:h-12 group-hover:translate-x-1 transition-transform" />
+          </button>
+
+          {/* Lớp phủ click để đóng (Z-index 100 để nằm dưới nút và ảnh) */}
+          <div className="absolute inset-0 z-[90]" onClick={closeGallery}></div>
+        </div>
+      )}
     </div>
   );
 }
