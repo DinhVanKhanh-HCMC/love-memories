@@ -28,10 +28,10 @@ export default function LoveMemories() {
   
   // Ảnh cho slideshow hero
   const heroImages = [
-    '/images/anh1.jpg?w=1920&h=1080&fit=crop',
-    '/images/anh2.jpg?w=1920&h=1080&fit=crop',
-    '/images/anh3.jpg?w=1920&h=1080&fit=crop',
-    '/images/anh4.jpg?w=1920&h=1080&fit=crop'
+    '/love-memories/images/anh1.jpg?w=1920&h=1080&fit=crop',
+    '/love-memories/images/anh2.jpg?w=1920&h=1080&fit=crop',
+    '/love-memories/images/anh3.jpg?w=1920&h=1080&fit=crop',
+    '/love-memories/images/anh4.jpg?w=1920&h=1080&fit=crop'
   ];
 
   const openGallery = (memory) => {
@@ -67,40 +67,40 @@ export default function LoveMemories() {
   
   // Ảnh mẫu demo
   const memories = [
-    { id: 1, title: 'Đi ăn cùng nhau nà', date: '29/11/2025', image: '/1_havelunch/1.jpg?w=400&h=400&fit=crop',
+    { id: 1, title: 'Đi ăn cùng nhau nà', date: '29/11/2025', image: '/love-memories/1_havelunch/1.jpg?w=400&h=400&fit=crop',
       album: [
-        '/1_havelunch/1.jpg',
-        '/1_havelunch/2.jpg',
-        '/1_havelunch/3.jpg'
+        '/love-memories/1_havelunch/1.jpg',
+        '/love-memories/1_havelunch/2.jpg',
+        '/love-memories/1_havelunch/3.jpg'
       ]
     },
-    { id: 2, title: 'Đi Thảo Cầm Viên với nhau nà', date: '27/12/2025', image: '/2_thaocamvien/1.jpg?w=400&h=400&fit=crop',
+    { id: 2, title: 'Đi Thảo Cầm Viên với nhau nà', date: '27/12/2025', image: '/love-memories/2_thaocamvien/1.jpg?w=400&h=400&fit=crop',
       album: [
-        '/2_thaocamvien/1.jpg',
-        '/2_thaocamvien/2.jpg',
-        '/2_thaocamvien/3.jpg',
-        '/2_thaocamvien/4.jpg',
+        '/love-memories/2_thaocamvien/1.jpg',
+        '/love-memories/2_thaocamvien/2.jpg',
+        '/love-memories/2_thaocamvien/3.jpg',
+        '/love-memories/2_thaocamvien/4.jpg',
       ]
     },
-    { id: 3, title: 'Work date đồ đoá', date: '28/12/2025', image: '/3_studydate/1.jpg?w=400&h=400&fit=crop',
+    { id: 3, title: 'Work date đồ đoá', date: '28/12/2025', image: '/love-memories/3_studydate/1.jpg?w=400&h=400&fit=crop',
       album: [
-        '/3_studydate/1.jpg',
+        '/love-memories/3_studydate/1.jpg',
       ]
     },
-    { id: 4, title: 'Đi ăn cùng nhau ở Long Xuyên nà', date: '02/01/2025', image: '/4_thaifood/1.jpg?w=400&h=400&fit=crop',
+    { id: 4, title: 'Đi ăn cùng nhau ở Long Xuyên nà', date: '02/01/2025', image: '/love-memories/4_thaifood/1.jpg?w=400&h=400&fit=crop',
       album: [
-        '/4_thaifood/1.jpg',
-        '/4_thaifood/2.jpg',
-        '/4_thaifood/3.jpg',
-        '/4_thaifood/4.jpg',
+        '/love-memories/4_thaifood/1.jpg',
+        '/love-memories/4_thaifood/2.jpg',
+        '/love-memories/4_thaifood/3.jpg',
+        '/love-memories/4_thaifood/4.jpg',
       ]
     },
-    { id: 5, title: 'Đi thăm khu lưu niệm Bác Tôn nà', date: '03/01/2025', image: '/5_TonPresident/1.jpg?w=400&h=400&fit=crop',
+    { id: 5, title: 'Đi thăm khu lưu niệm Bác Tôn nà', date: '03/01/2025', image: '/love-memories/5_TonPresident/1.jpg?w=400&h=400&fit=crop',
       album: [
-        '/5_TonPresident/1.jpg',
-        '/5_TonPresident/2.jpg',
-        '/5_TonPresident/3.jpg',
-        '/5_TonPresident/4.jpg',
+        '/love-memories/5_TonPresident/1.jpg',
+        '/love-memories/5_TonPresident/2.jpg',
+        '/love-memories/5_TonPresident/3.jpg',
+        '/love-memories/5_TonPresident/4.jpg',
       ]
     },
   ];
@@ -372,7 +372,7 @@ export default function LoveMemories() {
                 <div className="w-24 h-24 p-1 bg-gradient-to-br from-pink-400 to-rose-600 rounded-3xl flex items-center justify-center transform rotate-6 group-hover:rotate-12 transition-transform shadow-xl overflow-hidden">
                   {/* Thẻ img thay cho Icon */}
                   <img 
-                    src="/images/anh6.jpg" // Thay đường dẫn ảnh của bạn ở đây
+                    src="/love-memories/images/anh6.jpg" // Thay đường dẫn ảnh của bạn ở đây
                     alt="Anh ấy"
                     className="w-full h-full object-cover rounded-[1.4rem] transition-transform group-hover:scale-110"
                   />
@@ -399,7 +399,7 @@ export default function LoveMemories() {
                 <div className="w-24 h-24 p-1 bg-gradient-to-br from-pink-400 to-rose-600 rounded-3xl flex items-center justify-center transform rotate-6 group-hover:rotate-12 transition-transform shadow-xl overflow-hidden">
                   {/* Thẻ img thay cho Icon */}
                   <img 
-                    src="/images/anh7.jpg" // Thay đường dẫn ảnh của bạn ở đây
+                    src="/love-memories/images/anh7.jpg" // Thay đường dẫn ảnh của bạn ở đây
                     alt="Cô ấy"
                     className="w-full h-full object-cover rounded-[1.4rem] transition-transform group-hover:scale-110"
                   />
